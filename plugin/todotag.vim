@@ -73,33 +73,51 @@ endfunction
 "   echo GetTodoComment()
 "   >> 2013-08-09:
 "
-function! GetTodoComment ()
+function GetTodoComment ()
+    " TODO:2013-10-31:teddy: figure out why sometimes this isn't being set
+    " properly. In the meantime this will make sure it is
+    if !exists("b:todotag_owner_tag")
+        call s:Debug('b:todotag_owner_tag not set')
+        call s:SetOwnerTag()
+    endif
     return strftime("%Y-%m-%d") . ':' . b:todotag_owner_tag
 endfunction
 
 
-" Set the owner tag based on global variable
-if !exists("g:todotag_owner")
-    call s:Debug('g:todotag_owner not set')
-    if exists("$USER")
-        call s:Debug('$USER exists')
-        let b:todotag_owner_tag = $USER . ':'
-    elseif exists("$USERNAME")
-        call s:Debug('$USERNAME exists')
-        let b:todotag_owner_tag = $USERNAME . ':'
+" Sets the owner tag based on global variable and saves to buffer-scope
+" variable.
+"
+" Variables:
+"   g:todotag_owner - The owner set by the user in their vimrc. If this
+"   doesn't exist it tries to be smart about discovering a good value.
+"
+" Returns:
+"   It sets b:todotag_owner_tag and does the implied return of 1
+"
+function s:SetOwnerTag ()
+    if !exists("g:todotag_owner")
+        call s:Debug('g:todotag_owner not set')
+        if exists("$USER")
+            call s:Debug('$USER exists')
+            let b:todotag_owner_tag = $USER . ':'
+        elseif exists("$USERNAME")
+            call s:Debug('$USERNAME exists')
+            let b:todotag_owner_tag = $USERNAME . ':'
+        else
+            call s:Debug('Cant find anything')
+            let b:todotag_owner_tag = 'ChangeMe:'
+        endif
+    elseif g:todotag_owner == ''
+        call s:Debug('g:todotag_owner set to empty string')
+        let b:todotag_owner_tag = ''
     else
-        call s:Debug('Cant find anything')
-        let b:todotag_owner_tag = 'ChangeMe:'
+        call s:Debug('g:todotag_owner is ' . g:todotag_owner)
+        let b:todotag_owner_tag = g:todotag_owner . ':'
     endif
-elseif g:todotag_owner == ''
-    call s:Debug('g:todotag_owner set to empty string')
-    let b:todotag_owner_tag = ''
-else
-    call s:Debug('g:todotag_owner is ' . g:todotag_owner)
-    let b:todotag_owner_tag = g:todotag_owner . ':'
-endif
 
-call s:Debug('b:todotag_owner_tag is "' . b:todotag_owner_tag . '"')
+    call s:Debug('b:todotag_owner_tag is "' . b:todotag_owner_tag . '"')
+endfunction
+call s:SetOwnerTag()
 
 
 " Set the abbreviations
