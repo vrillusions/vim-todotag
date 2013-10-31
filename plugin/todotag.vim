@@ -1,43 +1,42 @@
-" todo_comment.vim
+" todotag.vim - format TODO tags with date and owner
 "
 " This formats a todo line in comments so they have a standard format.
 " Inspiration for this came from http://www.approxion.com/?p=39 and pretty
-" much emulates that format. This also defines a note line as I use note and
-" todo for two different meanings. Note is just something to consider while
-" todo is an action item.
+" much emulates that format.
 "
 " Options:
-"   g:todo_comment_owner - Set to the value for owner part of string. If this
+"   g:todotag_owner - Set to the value for owner part of string. If this
 "   is an empty string then the owner part will be omitted. If not specified
 "   this will try $USER, $USERNAME, 'ChangeMe'. It's highly recommended you
 "   set this as you may be logged in as different users in each system.
 "
 " Provides:
-"   b:todo_comment_owner_tag - After processing this is the result that will
+"   b:todotag_owner_tag - After processing this is the result that will
 "   be appended to message. Can be overridden at the buffer level if needed
+"
 "   GetTodoComment() - Function that returns the current date and owner
+"
 "   iabbr TODO: - Will print the current date and owner
-"   iabbr NOTE: - Will print the current date and owner
 "
 " Installation:
 "   - Place this file in ~/.vim/plugins/
 "   - Add the following line to your ~/.vimrc
 "
-"       let g:todo_comment_owner = 'your_name'
+"       let g:todotag_owner = 'your_name'
 "
-"   - Any time you type `TODO: ` or `NOTE: ` it will expand that to include
-"     the date and value of g:todo_comment_owner
+" Usage:
+"   In insert mode typing something like `# TODO: ` will insert the current
+"   date followed by the vale of g:todotag_owner_tag.
 "
-" Version: 0.1.0
-"
-" Changelog:
-"   0.1.0
-"     - Initial release
-"
-" Copyright: 2013, Todd Eddy <http://github.com/vrillusions>
-" License: The Unlicense: http://unlicense.org/
+" Author: Todd Eddy <http://toddeddy.com>
+" License: The Unlicense <http://unlicense.org/>
+" Version: 0.2.0-dev
 "
 
+if exists('g:loaded_todotag') || &cp || v:version < 700
+    finish
+endif
+let g:loaded_todotag = 1
 
 " Uncomment this to echo debug lines. Used by s:Debug()
 "let s:do_debug = 'true'
@@ -62,45 +61,45 @@ endfunction
 " Returns a concatenation of timestamp and owner.
 "
 " Variables:
-"   b:todo_comment_owner_tag - Will be appended to date. Should either end
+"   b:todotag_owner_tag - Will be appended to date. Should either end
 "   with a semicolon or be empty if no owner specified.
 "
 " Example:
-"   let b:todo_comment_owner_tag = 'jdoe:'
+"   let b:todotag_owner_tag = 'jdoe:'
 "   echo GetTodoComment()
 "   >> 2013-08-09:jdoe:
 "
-"   let b:todo_comment_owner_tag = ''
+"   let b:todotag_owner_tag = ''
 "   echo GetTodoComment()
 "   >> 2013-08-09:
 "
 function! GetTodoComment ()
-    return strftime("%F") . ':' . b:todo_comment_owner_tag
+    return strftime("%F") . ':' . b:todotag_owner_tag
 endfunction
 
 
 " Set the owner tag based on global variable
-if !exists("g:todo_comment_owner")
-    call s:Debug('g:todo_comment_owner not set')
+if !exists("g:todotag_owner")
+    call s:Debug('g:todotag_owner not set')
     if exists("$USER")
         call s:Debug('$USER exists')
-        let b:todo_comment_owner_tag = $USER . ':'
+        let b:todotag_owner_tag = $USER . ':'
     elseif exists("$USERNAME")
         call s:Debug('$USERNAME exists')
-        let b:todo_comment_owner_tag = $USERNAME . ':'
+        let b:todotag_owner_tag = $USERNAME . ':'
     else
         call s:Debug('Cant find anything')
-        let b:todo_comment_owner_tag = 'ChangeMe:'
+        let b:todotag_owner_tag = 'ChangeMe:'
     endif
-elseif g:todo_comment_owner == ''
-    call s:Debug('g:todo_comment_owner set to empty string')
-    let b:todo_comment_owner_tag = ''
+elseif g:todotag_owner == ''
+    call s:Debug('g:todotag_owner set to empty string')
+    let b:todotag_owner_tag = ''
 else
-    call s:Debug('g:todo_comment_owner is ' . g:todo_comment_owner)
-    let b:todo_comment_owner_tag = g:todo_comment_owner . ':'
+    call s:Debug('g:todotag_owner is ' . g:todotag_owner)
+    let b:todotag_owner_tag = g:todotag_owner . ':'
 endif
 
-call s:Debug('b:todo_comment_owner_tag is "' . b:todo_comment_owner_tag . '"')
+call s:Debug('b:todotag_owner_tag is "' . b:todotag_owner_tag . '"')
 
 
 " Set the abbreviations
