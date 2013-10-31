@@ -74,7 +74,7 @@ endfunction
 "   >> 2013-08-09:
 "
 function! GetTodoComment ()
-    return strftime("%F") . ':' . b:todotag_owner_tag
+    return strftime("%Y-%m-%d") . ':' . b:todotag_owner_tag
 endfunction
 
 
