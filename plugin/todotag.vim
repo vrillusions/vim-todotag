@@ -104,7 +104,6 @@ call s:Debug('b:todotag_owner_tag is "' . b:todotag_owner_tag . '"')
 
 " Set the abbreviations
 iab TODO: TODO:<c-r>=GetTodoComment()<CR>
-iab NOTE: NOTE:<c-r>=GetTodoComment()<CR>
 
 
 " vim: set et ts=4 sw=4 sts=4:
