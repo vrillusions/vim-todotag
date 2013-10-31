@@ -1,13 +1,13 @@
-v0.2.0 - unreleased
-===================
+0.2.0 - unreleased
+==================
 
-- Renamed to "todotag" and moved to it's own git repo. (Was previously called
+- Renamed to "todotag" and moved to it's own project. (Was previously called
   "todo_comment" and was located directly in my ~/.vim/plugin folder
 - Because of name change you will need to rename `g:todo_comment_owner` to
   `g:todotag_owner`.
 
-v0.1.0 - 2013-10-28
-===================
+0.1.0 - 2013-10-28
+==================
 
 - Initial release
 
