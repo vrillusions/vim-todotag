@@ -30,7 +30,7 @@
 "
 " Author: Todd Eddy <http://toddeddy.com>
 " License: The Unlicense <http://unlicense.org/>
-" Version: 0.2.0-dev
+" Version: 0.2.0
 "
 
 if exists('g:loaded_todotag') || &cp || v:version < 700
