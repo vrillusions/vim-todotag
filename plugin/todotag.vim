@@ -31,8 +31,9 @@
 " Author: Todd Eddy <http://toddeddy.com>
 " License: The Unlicense <http://unlicense.org/>
 " Version: 0.3.0-dev
-" }}}1
 
+
+" Initial setup {{{1
 if exists('g:loaded_todotag') || &cp || v:version < 700
   finish
 endif
@@ -40,6 +41,7 @@ let g:loaded_todotag = 1
 
 " Uncomment this to echo debug lines. Used by s:Debug()
 "let s:do_debug = 'true'
+
 
 " s:Debug(msg): Will echo the given message if s:do_debug exists {{{1
 "
