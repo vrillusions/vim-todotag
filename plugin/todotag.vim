@@ -30,7 +30,7 @@
 "
 " Author: Todd Eddy <http://toddeddy.com>
 " License: The Unlicense <http://unlicense.org/>
-" Version: 0.3.0-dev
+" Version: 0.3.0
 
 
 " Initial setup {{{1
