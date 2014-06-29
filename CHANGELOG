@@ -1,5 +1,11 @@
+0.x.x - unreleased
+==================
+
+- make it more clear in readme that an empty `todotag_owner` will then omit
+  that part from tag.
+
 0.3.0 - 2013-12-31
- =================
+==================
 
 - Two space indents are the norm for vim so modified that
 - Add folding markers for each of the functions
